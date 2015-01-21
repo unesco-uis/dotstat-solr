@@ -1,2 +1,2 @@
-# dotstat-sorl
+# dotstat-solr
 Dotstat Solr Integration project
