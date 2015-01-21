@@ -1,0 +1,28 @@
+<dataConfig>
+  <dataSource name="dbDS"
+    type="JdbcDataSource"
+    driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    url="jdbc:sqlserver://uis-***:1433;databaseName=***;user=***;password=***;" />
+	
+	<dataSource name="frDS" type="FieldReaderDataSource" />
+  <document>
+	<entity name="root"
+      dataSource="dbDS"
+      query="select * from DotStatSearchView" >
+      <!-- <field name="id" column="ID" />
+      <field name="addr_from" column="FROM" />
+      <field name="addr_to" column="TO" />
+      <field name="subject" column="SUBJECT" />
+      <field name="message" column="MESSAGE" />
+      <field name="date" column="DATE" dateTimeFormat="dd MMM yyyy"/>
+      <field column="type" template="vacancy-alert"/>
+	  -->
+	  <entity name="dataset" dataSource="frDS" processor="XPathEntityProcessor"
+            dataField="root.DataSetXmlDefinition" forEach='/Dataset/Dimension/Member'>
+	    <field xpath="/Dataset/Dimension/Member/Name[@LocaleIsoCode='en']" column='Name_EN'/>	
+	    <field xpath="/Dataset/Dimension/Member/Name[@LocaleIsoCode='fr']" column='Name_FR'/>	
+	  </entity>
+
+	  </entity>
+  </document>
+</dataConfig>
